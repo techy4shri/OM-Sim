@@ -1,5 +1,6 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLineEdit, QPushButton, QFileDialog
+import subprocess
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -32,7 +33,7 @@ class MainWindow(QWidget):
         self.setLayout(layout)
         self.setWindowTitle('OpenModelica GUI')
         self.show()
-
+ 
     def browseFile(self):
         fileName, _ = QFileDialog.getOpenFileName(self, 'Open File', '', 'Executable Files (*.exe)')
         if fileName:
@@ -42,8 +43,14 @@ class MainWindow(QWidget):
         appPath = self.appInput.text()
         startTime = self.startTimeInput.text()
         stopTime = self.stopTimeInput.text()
-        # Add code to execute the application with start and stop times
-        print(f'Running {appPath} from {startTime} to {stopTime}')
+        if appPath and startTime and stopTime:
+            try:
+                subprocess.run([appPath, startTime, stopTime])
+                print(f'Running {appPath} from {startTime} to {stopTime}')
+            except Exception as e:
+                print(f'Failed to run application: {e}')
+        else:
+            print('Please provide all inputs: application path, start time, and stop time')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
