@@ -33,7 +33,7 @@ class MainWindow(QWidget):
         self.setLayout(layout)
         self.setWindowTitle('OpenModelica GUI')
         self.show()
-
+ 
     def browseFile(self):
         fileName, _ = QFileDialog.getOpenFileName(self, 'Open File', '', 'Executable Files (*.exe)')
         if fileName:
