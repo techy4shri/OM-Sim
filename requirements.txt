@@ -1,3 +1,2 @@
-sys
 PyQt6
 subprocess
