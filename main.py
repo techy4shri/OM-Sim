@@ -86,14 +86,16 @@ class MainWindow(QWidget):
             )
             QMessageBox.information(self, "SUCCESS", f"Successful execution!\n\nOutput: \n{result.stdout}")
         except subprocess.CalledProcessError as e:
-            QMessageBox.critical(self, "Execution error", f"Error during simulation:\n{e.stderr}")
+            QMessageBox.critical(self, "Execution error", f"Error during simulation:\n{e.stderr}") #getting this error every run right now
         except Exception as e:
             QMessageBox.critical(self, "Unexpected Error" , f'Failed to run application: {str(e)}')
         else:
             print('Please provide all inputs: application path, start time, and stop time')
 
+#main execution of program
+#this runs the GUI application
 if __name__ == '__main__':
-    app = QApplication([])
+    app = QApplication([]) #no CLI here, everything happens on the active window
     mainWindow = MainWindow()
     sys.exit(app.exec())
  
