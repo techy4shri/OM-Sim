@@ -1,0 +1,16 @@
+{
+    "python.globalModuleInstallation": true,
+
+    // Enable linting
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true, // Enable Pylint for linting
+
+    // Enable formatting on save
+    "editor.formatOnSave": true,
+
+    // Specify Autopep8 as the formatter
+    "python.formatting.provider": "autopep8",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    }
+}
