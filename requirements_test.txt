@@ -1,0 +1,15 @@
+# PyQt6 for GUI
+PyQt6==6.8.0
+PyQt6-Qt6==6.8.1
+PyQt6_sip==13.9.1
+
+# Testing and Linting Tools
+black==24.10.0
+flake8==7.1.1
+pylint==3.3.3
+
+# Dependencies for tools
+tomli==2.2.1
+mccabe==0.7.0
+pyflakes==3.2.0
+pycodestyle==2.12.1

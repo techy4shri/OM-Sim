@@ -1,4 +1,0 @@
-PyQt6
-pep8
-Pylint
-autopep8
