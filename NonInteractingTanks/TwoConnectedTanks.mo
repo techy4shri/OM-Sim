@@ -12,6 +12,7 @@ equation
 
 protected
   annotation(
-    Diagram(coordinateSystem(extent = {{-100, 20}, {60, -120}})));
+    Diagram(coordinateSystem(extent = {{-100, 20}, {60, -120}})),
+  __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
 
 end TwoConnectedTanks;
