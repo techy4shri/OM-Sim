@@ -6,6 +6,7 @@ constraints.
 
 import sys
 import subprocess
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -69,6 +70,7 @@ class MainWindow(QWidget):
         self.start_time_input.setValue(0)  # Default value
         self.start_time_input.setFixedSize(100, 30)
         start_layout.addWidget(start_label)
+        start_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
         start_layout.addWidget(self.start_time_input)
         layout.addLayout(start_layout)
 
@@ -80,6 +82,7 @@ class MainWindow(QWidget):
         self.stop_time_input.setValue(5)  # Default value
         self.stop_time_input.setFixedSize(100, 30)
         stop_layout.addWidget(stop_label)
+        stop_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
         stop_layout.addWidget(self.stop_time_input)
         layout.addLayout(stop_layout)
 
@@ -88,6 +91,9 @@ class MainWindow(QWidget):
         layout.addWidget(self.run_button)
         self.run_button.setMinimumSize(60, 20)
         self.run_button.setMaximumSize(100, 40)
+        layout.addWidget(
+            self.run_button, alignment=Qt.AlignmentFlag.AlignCenter
+        )  # ignore
 
         # Layout
         self.setMinimumSize(600, 300)
