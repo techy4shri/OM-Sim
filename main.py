@@ -47,12 +47,15 @@ class MainWindow(QWidget):
         '''
         exe_layout = QHBoxLayout()
         exe_label = QLabel("Executable:")
-        exe_layout.addWidget(exe_label)
-        layout.addLayout(exe_layout)
         self.app_input = QLineEdit(self)
         self.app_input.setPlaceholderText("Browse executables to launch")
         layout.addWidget(self.app_input)
         exe_layout.addWidget(self.app_input)
+        self.app_input.setMinimumSize(400, 20)
+        self.app_input.setMaximumSize(80, 20)
+        exe_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        exe_layout.addWidget(exe_label)
+        layout.addLayout(exe_layout)
 
         # browse button to select the executable file
         # only searches for .exe files, no error handling needed therefore
@@ -89,7 +92,7 @@ class MainWindow(QWidget):
         self.run_button = QPushButton("Run", self)
         self.run_button.clicked.connect(self.run_app)
         layout.addWidget(self.run_button)
-        self.run_button.setMinimumSize(60, 20)
+        self.run_button.setMinimumSize(80, 40)
         self.run_button.setMaximumSize(100, 40)
         layout.addWidget(
             self.run_button, alignment=Qt.AlignmentFlag.AlignCenter
