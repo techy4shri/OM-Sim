@@ -7,6 +7,7 @@ constraints.
 import sys
 import subprocess
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap, QIcon
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -18,6 +19,7 @@ from PyQt6.QtWidgets import (
     QMessageBox,
     QApplication,
     QSpinBox,
+    QSizePolicy,
 )
 
 
@@ -39,69 +41,91 @@ class MainWindow(QWidget):
         """
         layout = QVBoxLayout()
         self.setWindowTitle("OpenModelica Simulation App")
+        self.setWindowIcon(QIcon("path_to_logo/logo.png"))
+
+        banner_layout = QHBoxLayout()
+        banner_label = QLabel(self)
+        banner_pixmap = QPixmap("path_to_banner/banner.png")
+        banner_label.setPixmap(banner_pixmap)
+        banner_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        banner_layout.addWidget(banner_label)
+        layout.addLayout(banner_layout)
 
         '''
         executable path field
         this field will be filled with path of the executable
         file upon browsing
         '''
-        exe_layout = QVBoxLayout()
-        exe_lab_layout = QVBoxLayout()
-        exe_label = QLabel("Executable:")
-        exe_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
+
+        exe_layout = QHBoxLayout()
+        exe_label = QLabel("Executable Path:")
+        exe_label.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+        exe_label.setFixedWidth(90)
+
         self.app_input = QLineEdit(self)
         self.app_input.setPlaceholderText("Browse executables to launch")
-        self.app_input.setMinimumSize(400, 20)
-        self.app_input.setMaximumSize(80, 20)
+        self.app_input.setFixedSize(250, 30)
+        self.app_input.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
+        )
 
+        # here comes browse
         browse_button = QPushButton("Browse", self)
+        browse_button.setFixedSize(90, 30)
         browse_button.clicked.connect(self.browse_file)
 
-        # label, input field, and browse button
-        exe_lab_layout.addWidget(exe_label)
-        exe_lab_layout.addWidget(self.app_input)
-        exe_lab_layout.setSpacing(10)
+        # layout widgets for exe
+        exe_layout.addWidget(exe_label)
+        exe_layout.addWidget(self.app_input)
         exe_layout.addWidget(browse_button)
-        exe_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        exe_layout.setSpacing(5)
+        exe_layout.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+
         layout.addLayout(exe_layout)
 
+        # Start time layout
+        start_layout = QHBoxLayout()
         start_label = QLabel("Start Time:")
+        start_label.setFixedWidth(60)
+
         self.start_time_input = QSpinBox(self)
         self.start_time_input.setRange(0, 5)  # Range: [0, 5]
         self.start_time_input.setValue(0)  # Default value
-        self.start_time_input.setFixedSize(100, 30)
+        self.start_time_input.setFixedSize(70, 40)
 
-        # layout definition
-        start_layout = QHBoxLayout()
         start_layout.addWidget(start_label)
-        start_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
         start_layout.addWidget(self.start_time_input)
+        start_layout.addStretch()
         layout.addLayout(start_layout)
 
-        # stop time of the execution of executable to launch
+        # Stop time layout
         stop_layout = QHBoxLayout()
         stop_label = QLabel("Stop Time:")
+        stop_label.setFixedWidth(60)
+
         self.stop_time_input = QSpinBox(self)
-        self.stop_time_input.setRange(0, 5)  # Range: [0, 5]
-        self.stop_time_input.setValue(5)  # Default value
-        self.stop_time_input.setFixedSize(100, 30)
+        self.stop_time_input.setRange(0, 5)
+        self.stop_time_input.setValue(5)
+        self.stop_time_input.setFixedSize(70, 40)
+
         stop_layout.addWidget(stop_label)
-        stop_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
         stop_layout.addWidget(self.stop_time_input)
+        stop_layout.addStretch()
         layout.addLayout(stop_layout)
 
+        # Run button
         self.run_button = QPushButton("Run", self)
-        self.run_button.clicked.connect(self.run_app)
-        layout.addWidget(self.run_button)
-        self.run_button.setMinimumSize(80, 40)
-        self.run_button.setMaximumSize(100, 40)
+        self.run_button.setFixedSize(100, 40)
         layout.addWidget(
-            self.run_button, alignment=Qt.AlignmentFlag.AlignCenter
-        )  # ignore
+            self.run_button,
+            alignment=Qt.AlignmentFlag.AlignCenter,
+        )
+        self.run_button.clicked.connect(self.run_app)
 
-        # Layout
-        self.setMinimumSize(400, 300)
-        self.setMaximumSize(1200, 600)
+        # Main Window Layout
+        layout.setSpacing(15)
+        layout.setContentsMargins(20, 20, 20, 20)
+        self.setFixedSize(500, 300)
         self.setLayout(layout)
         self.show()
 
@@ -129,7 +153,7 @@ class MainWindow(QWidget):
         # error handling and validation of inputs
         if not app_path:
             QMessageBox.critical(
-                self, "Inout Error", "Please select an executable file."
+                self, "Input Error", "Please select an executable file."
             )
             return
 
