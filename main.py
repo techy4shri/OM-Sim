@@ -45,33 +45,34 @@ class MainWindow(QWidget):
         this field will be filled with path of the executable
         file upon browsing
         '''
-        exe_layout = QHBoxLayout()
+        exe_layout = QVBoxLayout()
+        exe_lab_layout = QVBoxLayout()
         exe_label = QLabel("Executable:")
+        exe_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.app_input = QLineEdit(self)
         self.app_input.setPlaceholderText("Browse executables to launch")
-        layout.addWidget(self.app_input)
-        exe_layout.addWidget(self.app_input)
         self.app_input.setMinimumSize(400, 20)
         self.app_input.setMaximumSize(80, 20)
+
+        browse_button = QPushButton("Browse", self)
+        browse_button.clicked.connect(self.browse_file)
+
+        # label, input field, and browse button
+        exe_lab_layout.addWidget(exe_label)
+        exe_lab_layout.addWidget(self.app_input)
+        exe_lab_layout.setSpacing(10)
+        exe_layout.addWidget(browse_button)
         exe_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        exe_layout.addWidget(exe_label)
         layout.addLayout(exe_layout)
 
-        # browse button to select the executable file
-        # only searches for .exe files, no error handling needed therefore
-        self.browse_button = QPushButton("Browse", self)
-        self.browse_button.clicked.connect(self.browse_file)
-        layout.addWidget(self.browse_button)
-        self.browse_button.setMinimumSize(60, 20)
-        self.browse_button.setMaximumSize(100, 40)
-
-        # start time of the execution of executable to launch
-        start_layout = QHBoxLayout()
         start_label = QLabel("Start Time:")
         self.start_time_input = QSpinBox(self)
         self.start_time_input.setRange(0, 5)  # Range: [0, 5]
         self.start_time_input.setValue(0)  # Default value
         self.start_time_input.setFixedSize(100, 30)
+
+        # layout definition
+        start_layout = QHBoxLayout()
         start_layout.addWidget(start_label)
         start_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
         start_layout.addWidget(self.start_time_input)
@@ -99,7 +100,7 @@ class MainWindow(QWidget):
         )  # ignore
 
         # Layout
-        self.setMinimumSize(600, 300)
+        self.setMinimumSize(400, 300)
         self.setMaximumSize(1200, 600)
         self.setLayout(layout)
         self.show()
