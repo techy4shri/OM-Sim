@@ -69,7 +69,6 @@ class MainWindow(QWidget):
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
         )
 
-        # here comes browse
         browse_button = QPushButton("Browse", self)
         browse_button.setFixedSize(90, 30)
         browse_button.clicked.connect(self.browse_file)
@@ -83,7 +82,6 @@ class MainWindow(QWidget):
 
         layout.addLayout(exe_layout)
 
-        # Start time layout
         start_layout = QHBoxLayout()
         start_label = QLabel("Start Time:")
         start_label.setFixedWidth(60)
@@ -98,7 +96,6 @@ class MainWindow(QWidget):
         start_layout.addStretch()
         layout.addLayout(start_layout)
 
-        # Stop time layout
         stop_layout = QHBoxLayout()
         stop_label = QLabel("Stop Time:")
         stop_label.setFixedWidth(60)
@@ -201,8 +198,10 @@ class MainWindow(QWidget):
             )
         except OSError as e:
             QMessageBox.critical(
-                self, "OS Error", f"OS error occurred: {str(e)}"
-            )  # ignore
+                self,
+                "OS Error",
+                f"OS error occurred: {str(e)}",
+            )
         # Debugging information
         except Exception as e:
             QMessageBox.critical(
@@ -218,7 +217,7 @@ class MainWindow(QWidget):
 # this runs the GUI application
 if __name__ == "__main__":
     # no CLI here, everything happens on the active window
-    app = QApplication(sys.argv)
+    app = QApplication([])
     mainWindow = MainWindow()
     mainWindow.show()
     sys.exit(app.exec())
