@@ -166,7 +166,6 @@ class MainWindow(QWidget):
         working_dir = os.path.dirname(app_path)
         output_file = os.path.join(working_dir, "simulation_res.mat")
 
-        # Command to run the simulation
         command = [
             app_path,
             "-inputPath=" + working_dir,
