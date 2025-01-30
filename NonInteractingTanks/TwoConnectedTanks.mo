@@ -13,6 +13,7 @@ equation
 protected
   annotation(
     Diagram(coordinateSystem(extent = {{-100, 20}, {60, -120}})),
-  __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
+  __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*", maxIntegrationOrder = "3"),
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian");
 
 end TwoConnectedTanks;

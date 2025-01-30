@@ -45,7 +45,7 @@ class MainWindow(QWidget):
 
         banner_layout = QHBoxLayout()
         banner_label = QLabel(self)
-        banner_pixmap = QPixmap("path_to_banner/banner.png")
+        banner_pixmap = QPixmap("./banner.png")
         banner_label.setPixmap(banner_pixmap)
         banner_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         banner_layout.addWidget(banner_label)
@@ -122,7 +122,7 @@ class MainWindow(QWidget):
         # Main Window Layout
         layout.setSpacing(15)
         layout.setContentsMargins(20, 20, 20, 20)
-        self.setFixedSize(500, 300)
+        self.setFixedSize(600, 400)
         self.setLayout(layout)
         self.show()
 
