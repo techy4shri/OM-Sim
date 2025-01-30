@@ -102,7 +102,7 @@ class MainWindow(QWidget):
 
         self.stop_time_input = QSpinBox(self)
         self.stop_time_input.setRange(0, 5)
-        self.stop_time_input.setValue(5)
+        self.stop_time_input.setValue(0)
         self.stop_time_input.setFixedSize(70, 40)
 
         stop_layout.addWidget(stop_label)

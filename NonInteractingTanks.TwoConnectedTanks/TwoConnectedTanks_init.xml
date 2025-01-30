@@ -9,15 +9,15 @@
 
   OPENMODELICAHOME                    = "C:/Program Files/OpenModelica1.24.3-64bit"
 
-  guid                                = "{4488716b-513d-45a2-9235-63a29a7ea6b6}"
+  guid                                = "{01df0133-eaf1-47be-937c-db0b1d578159}"
 
   description                         = ""
   generationTool                      = "OpenModelica Compiler OpenModelica v1.24.3 (64-bit)"
-  generationDateAndTime               = "2025-01-22T00:38:04Z"
+  generationDateAndTime               = "2025-01-27T23:48:23Z"
 
   variableNamingConvention            = "structured"
 
-  numberOfEventIndicators             = "1"  cmt_numberOfEventIndicators             = "NG:       number of zero crossings,                           FMI"
+  numberOfEventIndicators             = "2"  cmt_numberOfEventIndicators             = "NG:       number of zero crossings,                           FMI"
   numberOfTimeEvents                  = "0"  cmt_numberOfTimeEvents                  = "NG_SAM:   number of zero crossings that are samples,          OMC"
 
   numberOfInputVariables              = "0"  cmt_numberOfInputVariables              = "NI:       number of inputvar on topmodel,                     OMC"
@@ -47,8 +47,8 @@
   <!-- startTime, stopTime, tolerance are FMI specific, all others are OMC specific -->
   <DefaultExperiment
     startTime      = "0"
-    stopTime       = "5"
-    stepSize       = "0.01"
+    stopTime       = "1"
+    stepSize       = "0.002"
     tolerance      = "1e-06"
     solver        = "dassl"
     outputFormat      = "mat"
@@ -65,8 +65,8 @@
     alias = "noAlias"
     classIndex = "0" classType = "rSta"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/Tank.mo" startLine = "5" startColumn = "1" endLine = "5" endColumn = "11" fileWritable = "true">
-    <Real fixed="true" useNominal="false" />
+    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/Tank.mo" startLine = "5" startColumn = "1" endLine = "5" endColumn = "22" fileWritable = "true">
+    <Real start="1.0" fixed="true" useNominal="false" />
   </ScalarVariable>
   <ScalarVariable
     name = "tank2.h"
@@ -87,7 +87,7 @@
     alias = "noAlias"
     classIndex = "0" classType = "rDer"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/Tank.mo" startLine = "5" startColumn = "1" endLine = "5" endColumn = "11" fileWritable = "true">
+    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/Tank.mo" startLine = "5" startColumn = "1" endLine = "5" endColumn = "22" fileWritable = "true">
     <Real fixed="false" useNominal="false" />
   </ScalarVariable>
   <ScalarVariable
@@ -110,7 +110,7 @@
     classIndex = "0" classType = "rAlg"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
     fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/Tank2.mo" startLine = "5" startColumn = "1" endLine = "5" endColumn = "12" fileWritable = "true">
-    <Real start="0.0" fixed="false" useNominal="false" />
+    <Real fixed="false" useNominal="false" />
   </ScalarVariable>
   <ScalarVariable
     name = "tank2.T"
@@ -172,10 +172,10 @@
     valueReference = "1010"
     variability = "continuous" isDiscrete = "false"
     causality = "local" isValueChangeable = "false"
-    alias = "alias" aliasVariable="tank2.Q1" aliasVariableId="4"
+    alias = "negatedAlias" aliasVariable="tank2.Q1" aliasVariableId="10"
     classIndex = "0" classType = "rAli"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/Tank.mo" startLine = "5" startColumn = "1" endLine = "5" endColumn = "11" fileWritable = "true">
+    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/Tank.mo" startLine = "5" startColumn = "1" endLine = "5" endColumn = "22" fileWritable = "true">
     <Real fixed="false" useNominal="false" />
   </ScalarVariable>
   <ScalarVariable
@@ -183,10 +183,10 @@
     valueReference = "1011"
     variability = "continuous" isDiscrete = "false"
     causality = "local" isValueChangeable = "false"
-    alias = "alias" aliasVariable="tank2.Q1" aliasVariableId="4"
+    alias = "negatedAlias" aliasVariable="tank2.Q1" aliasVariableId="11"
     classIndex = "1" classType = "rAli"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/FlowConnect.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "9" fileWritable = "true">
+    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/FlowConnect.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "14" fileWritable = "true">
     <Real fixed="false" useNominal="false" />
   </ScalarVariable>
   <ScalarVariable
@@ -197,7 +197,7 @@
     alias = "alias" aliasVariable="tank2.Q1" aliasVariableId="4"
     classIndex = "2" classType = "rAli"
     isProtected = "false" hideResult = "" isEncrypted = "false" initNonlinear = "false"
-    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/FlowConnect.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "9" fileWritable = "true">
+    fileName = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks/FlowConnect.mo" startLine = "4" startColumn = "3" endLine = "4" endColumn = "14" fileWritable = "true">
     <Real fixed="false" useNominal="false" />
   </ScalarVariable>
 

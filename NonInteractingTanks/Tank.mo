@@ -9,12 +9,16 @@ equation
 flowConnect.F = Qo;
  // Setting a positive initial value for h
 equation
+// Assigning potential variable (height/pressure)
+  flowConnect.P = h;
 der(h) = (Qin - Qo)/A;
 if time<=5 then
-Qo = 0;
+  Qo = 0;
 else
-Qo = if h > 0 then sqrt(h) else 0; //protecting against neg val
+  Qo = if h > 0 then sqrt(h) else 0; //protecting against h <=0
 end if;
+// Ensure h remains non-negative
+assert(h >= 0, "Error: Tank height (h) must be non-negative!");
 annotation(
     Icon(graphics = {Line(origin = {-7, 10}, points = {{-33, 28}, {-33, -28}, {33, -28}, {33, 28}, {33, 28}}), Line(origin = {-54, 47}, points = {{-24, 7}, {24, 7}, {24, -7}}), Line(origin = {-30, 43.416}, points = {{-4, 2.58397}, {0, -3.41603}, {4, 2.58397}}), Text(origin = {-61, 47}, extent = {{-45, 25}, {-25, -9}}, textString = "Qin"), Text(textColor = {0, 0, 255}, extent = {{0, 30}, {50, 80}}, textString = "%name")}));
 end Tank;
