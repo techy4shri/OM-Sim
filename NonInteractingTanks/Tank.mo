@@ -14,7 +14,6 @@ equation
 der(h) = (Qin - Qo)/A;
 Qo = max(0, if time <= 5 then 0 else sqrt(h));
 
-
 // Ensure h remains non-negative
 //assert(h >= 0, "Error: Tank height (h) must be non-negative!");
 annotation(

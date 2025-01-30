@@ -8,8 +8,9 @@ Real h(start = 1.0),Q1;
 equation
 // Assigning potential variable (height/pressure)
 flowConnect.P = h;
-flowConnect.F = Q1;
+
 der(h) = Q1 / A;
+
   annotation(
     Icon(graphics = {Line(origin = {-13, 13.5}, points = {{-35, 28.5}, {-35, -31.5}, {33, -31.5}, {35, -31.5}, {35, 26.5}, {35, 28.5}, {35, 24.5}}), Text(lineColor = {0, 0, 255}, extent = {{0, 30}, {50, 80}}, textString = "%name")}));
 end Tank2;

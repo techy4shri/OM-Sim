@@ -4,6 +4,7 @@ The application allows users to select an executable file and specify time
 constraints.
 """
 
+import os
 import sys
 import subprocess
 from PyQt6.QtCore import Qt
@@ -143,74 +144,76 @@ class MainWindow(QWidget):
         and time constraints.
         Validates the inputs and handles errors appropriately.
         """
-        app_path = self.app_input.text()
-        start_time = self.start_time_input.text()
-        stop_time = self.stop_time_input.text()
+        app_path = self.app_input.text().strip()
+        start_time = self.start_time_input.value()
+        stop_time = self.stop_time_input.value()
 
         # error handling and validation of inputs
-        if not app_path:
+        if not os.path.exists(app_path):
             QMessageBox.critical(
-                self, "Input Error", "Please select an executable file."
+                self, "File Error", "The executable file path is invalid!"
             )
             return
 
-        try:
-            start_time = int(start_time)
-            stop_time = int(stop_time)
-            if not 0 <= start_time < stop_time < 5:
-                raise ValueError(
-                    "Oopsie daisy, start time must be less than stop time, "
-                    "and both should be in the range of [0,5]"
-                )
-        except ValueError as e:
-            QMessageBox.critical(self, "Input error", str(e))
+        if not (0 <= start_time < stop_time <= 5):
+            QMessageBox.critical(
+                self,
+                "Input Error",
+                "Start time must be <stop time, with both in range [0,5].",
+            )
             return
 
-        # running the executable with -override arg
-        # to override the current XML while running
-        # allows the user to run the executable as desired
+        working_dir = os.path.dirname(app_path)
+        output_file = os.path.join(working_dir, "simulation_res.mat")
+
+        # Command to run the simulation
+        command = [
+            app_path,
+            "-inputPath=" + working_dir,
+            "-override",
+            f"startTime={start_time},stopTime={stop_time}",
+            "-r=" + output_file,
+            "-logFormat=xmltcp",
+            "-lv=LOG_STDOUT,LOG_ASSERT,LOG_STATS",
+        ]
+
         try:
+            # Run the subprocess and capture output
             result = subprocess.run(
-                [  # check the subprocess of open-modelica
-                    app_path,
-                    # adding time contraints as mentioned in docs
-                    "-override",
-                    f"startTime={start_time},stopTime={stop_time}",
-                ],
+                command,
+                cwd=working_dir,
                 capture_output=True,
                 text=True,
                 check=True,
             )
+
             QMessageBox.information(
                 self,
                 "SUCCESS",
-                f"Successful execution!\n\nOutput:\n{result.stdout}",
+                f"Execution successful!\n\nOutput:\n{result.stdout}",
             )
         except subprocess.CalledProcessError as e:
             QMessageBox.critical(
                 self,
-                "Execution error",
+                "Execution Error",
                 f"Error during simulation:\n{e.stderr}",
-            )  # getting this error every run right now
-        except FileNotFoundError as e:
+            )
+        except FileNotFoundError:
             QMessageBox.critical(
-                self, "File Not Found", f"Executable not found: {str(e)}"
+                self, "File Error", "The executable file could not be found!"
             )
         except OSError as e:
             QMessageBox.critical(
                 self,
                 "OS Error",
-                f"OS error occurred: {str(e)}",
+                f"OS error occurred: {e}",
             )
-        # Debugging information
         except Exception as e:
             QMessageBox.critical(
-                self, "Unexpected Error", f"Failed to run application:{str(e)}"
+                self,
+                "Unexpected Error",
+                f"Unexpected error: {e}",
             )
-            print(f"Exception: {e}")
-            print(f"app_path: {app_path}")
-            print(f"start_time: {start_time}")
-            print(f"stop_time: {stop_time}")
 
 
 # main execution of program
