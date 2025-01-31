@@ -170,11 +170,11 @@ class MainWindow(QWidget):
             app_path,
             "-inputPath=" + working_dir,
             "-override",
-            f"startTime={start_time},stopTime={stop_time}stepSize=0.002",
+            f"startTime={start_time},stopTime={stop_time},stepSize=0.002",
             "-r=" + output_file,
-            "-logFormat=xmltcp",
             "-lv=LOG_STDOUT,LOG_STATS",
         ]
+        env = os.environ.copy()  # Copy current environment from PATH
 
         try:
             # Run the subprocess and capture output
@@ -182,6 +182,7 @@ class MainWindow(QWidget):
                 command,
                 cwd=working_dir,
                 capture_output=True,
+                env=env,
                 text=True,
                 check=True,
             )
@@ -195,7 +196,7 @@ class MainWindow(QWidget):
             QMessageBox.critical(
                 self,
                 "Execution Error",
-                f"Error during simulation:\n{e.stderr}",
+                f"Error simulation:\n{e.stderr}\n\nOutput:\n{e.stdout}",
             )
         except FileNotFoundError:
             QMessageBox.critical(
