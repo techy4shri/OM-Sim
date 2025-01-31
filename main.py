@@ -1,5 +1,10 @@
 """
-This module provides a GUI application for running OpenModelica simulations.
+A destop GUI app for running OpenModelica simulations.
+Allows users to select an executable file,
+set time constraints, and run simulations.
+Displays real-time output from the simulation process.
+Efficient error handling is provided for unexpected errors.
+Simple and easy-to-use interface for running simulations.
 """
 
 import os
@@ -95,7 +100,7 @@ class MainWindow(QWidget):
 
     def _create_executable_input(self):
         """
-        Create the input layout for selecting an executable file.
+        Input layout for selecting an executable file.
         Default placeholder text is set to guide the user.
         Also only .exe files are allowed to be selected.
         """
@@ -252,13 +257,15 @@ class MainWindow(QWidget):
                     else "Unknown error occurred."
                 )  # noqa
                 self.output_display.append(
-                    f"\nSimulation failed:\n{error_output}"
-                )  # noqa
+                    f"\nSimulation failed:\n{error_output}",
+                )
 
-        except Exception as e:  # noqa
+        except Exception as e:
             QMessageBox.critical(
-                self, "Execution Error", f"Unexpected error: {e}"
-            )  # noqa
+                self,
+                "Execution Error",
+                f"Unexpected error: {e}",
+            )
 
 
 # Main execution of the program
