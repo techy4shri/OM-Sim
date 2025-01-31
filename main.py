@@ -6,7 +6,14 @@ import os
 import sys
 import subprocess
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtGui import (
+    QIcon,
+    QPixmap,
+    QLinearGradient,
+    QPalette,
+    QColor,
+    QBrush,
+)
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -39,12 +46,21 @@ class MainWindow(QWidget):
         """
         layout = QVBoxLayout()
         self.setWindowTitle("OpenModelica Simulation App")
-        self.setWindowIcon(QIcon("path_to_logo/logo.png"))
+        self.setWindowIcon(QIcon("./assets/icons8-mechanical-64.png"))
+
+        # Apply gradient background
+        gradient = QLinearGradient(0, 0, 0, self.height())
+        gradient.setColorAt(0.0, QColor("#4FACFE"))  # Lighter at the top
+        gradient.setColorAt(1.0, QColor("#1D2671"))  # Darker at the bottom
+
+        palette = QPalette()
+        palette.setBrush(QPalette.ColorRole.Window, QBrush(gradient))
+        self.setPalette(palette)
 
         # Banner section
         banner_layout = QHBoxLayout()
         banner_label = QLabel(self)
-        banner_pixmap = QPixmap("./banner.png")
+        banner_pixmap = QPixmap("./assets/banner.png")
         banner_label.setPixmap(banner_pixmap)
         banner_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         banner_layout.addWidget(banner_label)
