@@ -1,14 +1,12 @@
 """
 This module provides a GUI application for running OpenModelica simulations.
-The application allows users to select an executable file and specify time
-constraints.
 """
 
 import os
 import sys
 import subprocess
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap, QIcon
+from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -20,15 +18,15 @@ from PyQt6.QtWidgets import (
     QMessageBox,
     QApplication,
     QSpinBox,
-    QSizePolicy,
+    QTextEdit,
 )
 
 
 class MainWindow(QWidget):
     """
     Main window class for the OpenModelica Simulation App.
-    Provides the user interface for selecting an executable file
-    and running it with specified time constraints.
+    Includes the user interface and functionality to run simulations.
+    Also, the window size is adjusted to accommodate the output area.
     """
 
     def __init__(self):
@@ -38,12 +36,12 @@ class MainWindow(QWidget):
     def init_ui(self):
         """
         Initializes the user interface.
-        Sets up the layout and widgets for the application.
         """
         layout = QVBoxLayout()
         self.setWindowTitle("OpenModelica Simulation App")
         self.setWindowIcon(QIcon("path_to_logo/logo.png"))
 
+        # Banner section
         banner_layout = QHBoxLayout()
         banner_label = QLabel(self)
         banner_pixmap = QPixmap("./banner.png")
@@ -52,85 +50,108 @@ class MainWindow(QWidget):
         banner_layout.addWidget(banner_label)
         layout.addLayout(banner_layout)
 
-        '''
-        executable path field
-        this field will be filled with path of the executable
-        file upon browsing
-        '''
+        # Executable path input section
+        layout.addLayout(self._create_executable_input())
 
+        # Time input section
+        layout.addLayout(self._create_time_inputs())
+
+        # Run button
+        self.run_button = QPushButton("Run", self)
+        self.run_button.setFixedSize(100, 40)
+        self.run_button.clicked.connect(self.run_app)
+        layout.addWidget(
+            self.run_button,
+            alignment=Qt.AlignmentFlag.AlignCenter,
+        )
+
+        # Output display section
+        self.output_display = QTextEdit(self)
+        self.output_display.setReadOnly(True)
+        self.output_display.setFixedHeight(200)
+        layout.addWidget(self.output_display)
+
+        # Main layout settings
+        layout.setSpacing(5)
+        layout.setContentsMargins(20, 20, 20, 20)
+        self.setFixedSize(600, 520)
+        self.setLayout(layout)
+
+    def _create_executable_input(self):
+        """
+        Create the input layout for selecting an executable file.
+        Default placeholder text is set to guide the user.
+        Also only .exe files are allowed to be selected.
+        """
         exe_layout = QHBoxLayout()
         exe_label = QLabel("Executable Path:")
         exe_label.setAlignment(Qt.AlignmentFlag.AlignVCenter)
-        exe_label.setFixedWidth(90)
+        exe_label.setFixedWidth(110)
 
         self.app_input = QLineEdit(self)
         self.app_input.setPlaceholderText("Browse executables to launch")
-        self.app_input.setFixedSize(250, 30)
-        self.app_input.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
-        )
 
         browse_button = QPushButton("Browse", self)
         browse_button.setFixedSize(90, 30)
         browse_button.clicked.connect(self.browse_file)
 
-        # layout widgets for exe
         exe_layout.addWidget(exe_label)
         exe_layout.addWidget(self.app_input)
         exe_layout.addWidget(browse_button)
-        exe_layout.setSpacing(5)
-        exe_layout.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
-        layout.addLayout(exe_layout)
+        return exe_layout
 
+    def _create_time_inputs(self):
+        """
+        Layout for time input fields (start and stop time).
+        Center Alignment is used for better visual appearance.
+        Default value before selection is set to 0.
+        """
+        time_layout = QVBoxLayout()
+        time_layout.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        time_layout.setSpacing(10)
+        time_layout.setContentsMargins(0, 2, 0, 0)
+
+        # Start Time Layout (centered because it works better with UI)
         start_layout = QHBoxLayout()
+        start_layout.setSpacing(0)
         start_label = QLabel("Start Time:")
-        start_label.setFixedWidth(60)
-
+        start_label.setAlignment(
+            Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
+        )
+        start_label.setFixedWidth(70)
         self.start_time_input = QSpinBox(self)
-        self.start_time_input.setRange(0, 5)  # Range: [0, 5]
-        self.start_time_input.setValue(0)  # Default value
-        self.start_time_input.setFixedSize(70, 40)
+        self.start_time_input.setRange(0, 5)
+        self.start_time_input.setFixedSize(70, 30)
 
         start_layout.addWidget(start_label)
         start_layout.addWidget(self.start_time_input)
-        start_layout.addStretch()
-        layout.addLayout(start_layout)
 
+        # Stop Time Layout (centered because it works better with UI)
         stop_layout = QHBoxLayout()
+        stop_layout.setSpacing(0)
         stop_label = QLabel("Stop Time:")
-        stop_label.setFixedWidth(60)
-
+        stop_label.setAlignment(
+            Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter
+        )
+        stop_label.setFixedWidth(70)
         self.stop_time_input = QSpinBox(self)
         self.stop_time_input.setRange(0, 5)
-        self.stop_time_input.setValue(0)
-        self.stop_time_input.setFixedSize(70, 40)
+        self.stop_time_input.setFixedSize(70, 30)
 
         stop_layout.addWidget(stop_label)
         stop_layout.addWidget(self.stop_time_input)
-        stop_layout.addStretch()
-        layout.addLayout(stop_layout)
 
-        # Run button
-        self.run_button = QPushButton("Run", self)
-        self.run_button.setFixedSize(100, 40)
-        layout.addWidget(
-            self.run_button,
-            alignment=Qt.AlignmentFlag.AlignCenter,
-        )
-        self.run_button.clicked.connect(self.run_app)
+        time_layout.addLayout(start_layout)
+        time_layout.addLayout(stop_layout)
 
-        # Main Window Layout
-        layout.setSpacing(15)
-        layout.setContentsMargins(20, 20, 20, 20)
-        self.setFixedSize(600, 400)
-        self.setLayout(layout)
-        self.show()
+        return time_layout
 
     def browse_file(self):
         """
         Opens a file dialog to select an executable file.
-        Sets the selected file path to the app_input field.
+        Only .exe files are allowed to be selected.
+        No other file types are allowed.
         """
         file_path, _ = QFileDialog.getOpenFileName(
             self, "Open File", "", "Executable Files (*.exe)"
@@ -140,15 +161,16 @@ class MainWindow(QWidget):
 
     def run_app(self):
         """
-        Runs the application with the provided executable path
-        and time constraints.
-        Validates the inputs and handles errors appropriately.
+        Runs the application with
+        the provided executable path & time constraints.
+        Streams real-time output to the display.
+        Better error handling is provided for unexpected errors.
         """
         app_path = self.app_input.text().strip()
         start_time = self.start_time_input.value()
         stop_time = self.stop_time_input.value()
 
-        # error handling and validation of inputs
+        # Validate inputs
         if not os.path.exists(app_path):
             QMessageBox.critical(
                 self, "File Error", "The executable file path is invalid!"
@@ -159,7 +181,7 @@ class MainWindow(QWidget):
             QMessageBox.critical(
                 self,
                 "Input Error",
-                "Start time must be <stop time, with both in range [0,5].",
+                "Start time must be < stop time, with both in range [0,5].",
             )
             return
 
@@ -167,6 +189,8 @@ class MainWindow(QWidget):
         output_file = os.path.join(working_dir, "simulation_res.mat")
 
         command = [
+            # Override default settings as per documentation
+            # adjusted step-size to 0.002
             app_path,
             "-inputPath=" + working_dir,
             "-override",
@@ -174,52 +198,55 @@ class MainWindow(QWidget):
             "-r=" + output_file,
             "-lv=LOG_STDOUT,LOG_STATS",
         ]
-        env = os.environ.copy()  # Copy current environment from PATH
+
+        # Clear previous output and display status message
+        self.output_display.clear()
+        self.output_display.setText("Application is running...")
 
         try:
-            # Run the subprocess and capture output
-            result = subprocess.run(
+            # Run the subprocess and stream output
+            process = subprocess.Popen(
                 command,
                 cwd=working_dir,
-                capture_output=True,
-                env=env,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
                 text=True,
-                check=True,
+                env=os.environ.copy(),
             )
 
-            QMessageBox.information(
-                self,
-                "SUCCESS",
-                f"Execution successful!\n\nOutput:\n{result.stdout}",
-            )
-        except subprocess.CalledProcessError as e:
+            # Read and display output in real-time
+            if process.stdout:
+                for line in iter(process.stdout.readline, ""):
+                    self.output_display.append(line.strip())
+
+            process.wait()
+
+            # Check the return code and display the result
+            if process.returncode == 0:
+                self.output_display.append(
+                    "\nSimulation completed successfully!"
+                )  # noqa
+                self.output_display.append(
+                    f"Output file generated at: {output_file}"
+                )  # noqa
+            else:
+                error_output = (
+                    process.stderr.read()
+                    if process.stderr
+                    else "Unknown error occurred."
+                )  # noqa
+                self.output_display.append(
+                    f"\nSimulation failed:\n{error_output}"
+                )  # noqa
+
+        except Exception as e:  # noqa
             QMessageBox.critical(
-                self,
-                "Execution Error",
-                f"Error simulation:\n{e.stderr}\n\nOutput:\n{e.stdout}",
-            )
-        except FileNotFoundError:
-            QMessageBox.critical(
-                self, "File Error", "The executable file could not be found!"
-            )
-        except OSError as e:
-            QMessageBox.critical(
-                self,
-                "OS Error",
-                f"OS error occurred: {e}",
-            )
-        except Exception as e:
-            QMessageBox.critical(
-                self,
-                "Unexpected Error",
-                f"Unexpected error: {e}",
-            )
+                self, "Execution Error", f"Unexpected error: {e}"
+            )  # noqa
 
 
-# main execution of program
-# this runs the GUI application
+# Main execution of the program
 if __name__ == "__main__":
-    # no CLI here, everything happens on the active window
     app = QApplication([])
     mainWindow = MainWindow()
     mainWindow.show()
