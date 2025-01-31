@@ -1,6 +1,6 @@
 # **OpenModelica Simulation Desktop App**
 This project is designed to streamline the process of running simulations generated from OpenModelica models through a user-friendly **Python GUI** application built with **PyQt6**.
-
+For detailed documentation, including model changes, code improvements, and troubleshooting, visit the [**Project Wiki**](https://github.com/techy4shri/OpenModelica-GUI/wiki).
 The task involves:
 1. **Compiling a model** (e.g., TwoConnectedTanks) using OpenModelica to create an executable.
 2. **Building a GUI application** that runs the executable with adjustable parameters like start and stop times.
