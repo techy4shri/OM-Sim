@@ -48,7 +48,7 @@ class MainWindow(QWidget):
         self.setWindowTitle("OpenModelica Simulation App")
         self.setWindowIcon(QIcon("./assets/icons8-mechanical-64.png"))
 
-        # Apply gradient background
+        # gradient background
         gradient = QLinearGradient(0, 0, 0, self.height())
         gradient.setColorAt(0.0, QColor("#4FACFE"))  # Lighter at the top
         gradient.setColorAt(1.0, QColor("#1D2671"))  # Darker at the bottom
