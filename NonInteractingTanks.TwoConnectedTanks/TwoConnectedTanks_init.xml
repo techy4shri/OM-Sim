@@ -9,11 +9,11 @@
 
   OPENMODELICAHOME                    = "C:/Program Files/OpenModelica1.24.3-64bit"
 
-  guid                                = "{bf4108b6-da96-4748-a97a-af178a3a4e0d}"
+  guid                                = "{6fdc51d6-38b2-48fe-9109-0cbd615399b9}"
 
   description                         = ""
   generationTool                      = "OpenModelica Compiler OpenModelica v1.24.3 (64-bit)"
-  generationDateAndTime               = "2025-01-31T01:53:24Z"
+  generationDateAndTime               = "2025-01-31T02:35:09Z"
 
   variableNamingConvention            = "structured"
 
@@ -47,8 +47,8 @@
   <!-- startTime, stopTime, tolerance are FMI specific, all others are OMC specific -->
   <DefaultExperiment
     startTime      = "0"
-    stopTime       = "5"
-    stepSize       = "0.01"
+    stopTime       = "1"
+    stepSize       = "0.002"
     tolerance      = "1e-06"
     solver        = "dassl"
     outputFormat      = "mat"

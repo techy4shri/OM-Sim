@@ -170,10 +170,10 @@ class MainWindow(QWidget):
             app_path,
             "-inputPath=" + working_dir,
             "-override",
-            f"startTime={start_time},stopTime={stop_time}",
+            f"startTime={start_time},stopTime={stop_time}stepSize=0.002",
             "-r=" + output_file,
             "-logFormat=xmltcp",
-            "-lv=LOG_STDOUT,LOG_ASSERT,LOG_STATS",
+            "-lv=LOG_STDOUT,LOG_STATS",
         ]
 
         try:

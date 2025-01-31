@@ -370,7 +370,7 @@ void TwoConnectedTanks_setupDataStruc(DATA *data, threadData_t *threadData)
   data->modelData->modelFilePrefix = "TwoConnectedTanks";
   data->modelData->resultFileName = NULL;
   data->modelData->modelDir = "D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks";
-  data->modelData->modelGUID = "{bf4108b6-da96-4748-a97a-af178a3a4e0d}";
+  data->modelData->modelGUID = "{6fdc51d6-38b2-48fe-9109-0cbd615399b9}";
   #if defined(OPENMODELICA_XML_FROM_FILE_AT_RUNTIME)
   data->modelData->initXMLData = NULL;
   data->modelData->modelDataXml.infoXMLData = NULL;

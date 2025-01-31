@@ -1,26 +1,26 @@
-D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks.TwoConnectedTanks/TwoConnectedTanks.exe -port=62000 -logFormat=xmltcp -override=startTime=0,stopTime=5,stepSize=0.01,tolerance=1e-06,solver=dassl,outputFormat=mat,variableFilter=.* -r=D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks.TwoConnectedTanks/TwoConnectedTanks_res.mat -maxIntegrationOrder=3 -w -lv=LOG_STDOUT,LOG_ASSERT,LOG_STATS -inputPath=D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks.TwoConnectedTanks -outputPath=D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks.TwoConnectedTanks
+D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks.TwoConnectedTanks/TwoConnectedTanks.exe -port=51861 -logFormat=xmltcp -override=startTime=0,stopTime=1,stepSize=0.002,tolerance=1e-06,solver=dassl,outputFormat=mat,variableFilter=.* -r=D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks.TwoConnectedTanks/TwoConnectedTanks_res.mat -maxIntegrationOrder=3 -w -lv=LOG_STDOUT,LOG_ASSERT,LOG_STATS -inputPath=D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks.TwoConnectedTanks -outputPath=D:/SHRI1/github/OpenModelica-GUI/NonInteractingTanks.TwoConnectedTanks
 The initialization finished successfully without homotopy method.
 ### STATISTICS ###
 timer
-   0.0021397s          reading init.xml
-   0.0031933s          reading info.xml
-   0.0021684s [  8.1%] pre-initialization
-   0.0002307s [  0.9%] initialization
-    2.85e-05s [  0.1%] steps
-   0.0004566s [  1.7%] solver (excl. callbacks)
-   0.0023803s [  8.9%] creating output-file
-   0.0002415s [  0.9%] event-handling
-   0.0003358s [  1.3%] overhead
-   0.0209704s [ 78.2%] simulation
-   0.0268122s [100.0%] total
+   0.0040447s          reading init.xml
+   0.0024398s          reading info.xml
+   0.0059624s [ 17.7%] pre-initialization
+   0.0018917s [  5.6%] initialization
+    2.21e-05s [  0.1%] steps
+    0.001613s [  4.8%] solver (excl. callbacks)
+   0.0050489s [ 15.0%] creating output-file
+   0.0002181s [  0.6%] event-handling
+   0.0002751s [  0.8%] overhead
+   0.0186383s [ 55.4%] simulation
+   0.0336696s [100.0%] total
 events
     0 state events
     0 time events
 solver: dassl
-   24 steps taken
-   24 calls of functionODE
-   23 evaluations of jacobian
+   21 steps taken
+   21 calls of functionODE
+   20 evaluations of jacobian
     0 error test failures
     0 convergence test failures
-1.73e-05s time of jacobian evaluation
+1.86e-05s time of jacobian evaluation
 The simulation finished successfully.
