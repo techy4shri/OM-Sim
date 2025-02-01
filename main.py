@@ -50,7 +50,7 @@ class MainWindow(QWidget):
         Initializes the user interface.
         """
         layout = QVBoxLayout()
-        self.setWindowTitle("OpenModelica Simulation App")
+        self.setWindowTitle("OM-Sim")
         self.setWindowIcon(QIcon("./assets/icons8-mechanical-64.png"))
 
         # gradient background
