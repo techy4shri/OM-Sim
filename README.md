@@ -37,9 +37,8 @@ OpenModelica-GUI/
 ├── .github/                             # GitHub-related files (workflows, issue templates, etc.)
 ├── .venv/                               # Python virtual environment directory (optional)
 ├── .vscode/                             # VS Code configuration directory (settings, launch configurations, etc.)
-├── assessts/
-  └── banner.png                         # Banner image used in the GUI application
-  └── icons8-mechanical-64.png           # Application logo displayed on the window
+├── assessts/                            # application banner and icon files
+├── logs/                                # log of changes in application/repository
 ├── NonInteractingTanks/                 # Directory containing the Tank and Tank2 Modelica files
 ├── NonInteractingTanks.TwoConnectedTanks/  # Directory for the compiled executable and dependencies
 ├── main.py                              # Main Python script for running the GUI application
